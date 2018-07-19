@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.farjami.mohsen.pinterest">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="false"
+        android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
+        <activity android:name=".view.activity.ActivityMain">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".view.activity.ActivityLogin">
+        </activity>
+        <activity android:name=".view.activity.ActivitySignup">
+        </activity>
+        <activity android:name=".view.activity.ActivityShowPost">
+        </activity>
+        <activity android:name=".view.activity.ActivityRecoveryPassword">
+        </activity>
+        <activity android:name=".view.activity.ActivityUpload">
+        </activity>
+        <activity android:name=".view.activity.ActivitySearch">
+        </activity>
+        <activity android:name=".view.activity.ActivitySaved">
+        </activity>
+        <activity android:name=".view.activity.ActivityAccount">
+        </activity>
+        <activity android:name=".view.activity.ActivityChangePassword">
+        </activity>
+        <activity android:name=".view.activity.ActivityMyPosts">
+        </activity>
+        <activity android:name=".view.activity.ActivityUpTest">
+        </activity>
+    </application>
+
+</manifest>
