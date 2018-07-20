@@ -259,25 +259,24 @@ public class ActivityShowPost extends AppCompatActivity {
         prg_show_post_info.setVisibility(View.GONE);
 
 
-        Picasso.with(ActivityShowPost.this).load(main_image).into(img_post_image);
+        //Picasso.with(ActivityShowPost.this).load(main_image).into(img_post_image);
+
+
+        Picasso.with(ActivityShowPost.this).load(main_image).fetch(new Callback(){
+          @Override
+          public void onSuccess() {
+            img_post_image.setAlpha(0f);
+            Picasso.with(ActivityShowPost.this).load(main_image).into(img_post_image);
+            img_post_image.animate().setDuration(700).alpha(1f).start();
+          }
+
+          @Override
+          public void onError() {
+
+          }
+        });
+
         img_post_image.getLayoutParams().height= ViewGroup.LayoutParams.MATCH_PARENT;
-
-
-        //img_post_image.setLayoutParams(new CoordinatorLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
-//        Picasso.with(ActivityShowPost.this).load(main_image).fetch(new Callback(){
-//          @Override
-//          public void onSuccess() {
-//            img_post_image.setAlpha(0f);
-//            Picasso.with(ActivityShowPost.this).load(main_image).into(img_post_image);
-//            img_post_image.animate().setDuration(800).alpha(1f).start();
-//          }
-//
-//          @Override
-//          public void onError() {
-//
-//          }
-//        });
-
 
 
 

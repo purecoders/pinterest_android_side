@@ -15,34 +15,48 @@
         android:hardwareAccelerated="false"
         android:largeHeap="true"
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
-        <activity android:name=".view.activity.ActivityMain">
+        <activity android:name=".view.activity.ActivityMain"
+                  android:screenOrientation="portrait">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".view.activity.ActivityLogin">
+
+        <activity android:name=".view.activity.ActivityLogin"
+                  android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".view.activity.ActivitySignup">
+        <activity android:name=".view.activity.ActivitySignup"
+                  android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".view.activity.ActivityShowPost">
+        <activity android:name=".view.activity.ActivityShowPost"
+                  android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".view.activity.ActivityRecoveryPassword">
+        <activity android:name=".view.activity.ActivityRecoveryPassword"
+                  android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".view.activity.ActivityUpload">
+        <activity android:name=".view.activity.ActivityUpload"
+                  android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".view.activity.ActivitySearch">
+        <activity android:name=".view.activity.ActivitySearch"
+                  android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".view.activity.ActivitySaved">
+        <activity android:name=".view.activity.ActivitySaved"
+                  android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".view.activity.ActivityAccount">
+        <activity android:name=".view.activity.ActivityAccount"
+                  android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".view.activity.ActivityChangePassword">
+        <activity android:name=".view.activity.ActivityChangePassword"
+                  android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".view.activity.ActivityMyPosts">
+        <activity android:name=".view.activity.ActivityMyPosts"
+                  android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".view.activity.ActivityUpTest">
+        <activity android:name=".view.activity.ActivityUpTest"
+                  android:screenOrientation="portrait">
         </activity>
     </application>
 

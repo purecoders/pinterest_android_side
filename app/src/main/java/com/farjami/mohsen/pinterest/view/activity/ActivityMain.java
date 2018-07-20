@@ -208,7 +208,7 @@ public class ActivityMain extends AppCompatActivity {
         super.onScrollStateChanged(recyclerView, newState);
 
         if (!recyclerView.canScrollVertically(1)) {
-          if(!last_ids.contains(last_id) && last_id > 11){
+          if(!last_ids.contains(last_id) && last_id > 5){
             getPosts();
           }
           //Log.i(TAG,"scroll finished");
