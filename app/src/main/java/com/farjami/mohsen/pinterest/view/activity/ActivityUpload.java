@@ -52,7 +52,6 @@ public class ActivityUpload extends AppCompatActivity {
   RecyclerView rcv_all_tags;
   TextView txt_added_tags;
   Button btn_upload_post;
-  ProgressBar prg_upload;
 
   private boolean isSelectedPhoto = false;
 
@@ -80,7 +79,6 @@ public class ActivityUpload extends AppCompatActivity {
     rcv_all_tags= (RecyclerView) findViewById(R.id.rcv_all_tags);
     txt_added_tags= (TextView) findViewById(R.id.txt_added_tags);
     btn_upload_post= (Button) findViewById(R.id.btn_upload_post);
-    prg_upload= (ProgressBar) findViewById(R.id.prg_upload);
     lyt_upload= (RelativeLayout) findViewById(R.id.lyt_upload);
 
 
@@ -145,14 +143,15 @@ public class ActivityUpload extends AppCompatActivity {
 
         img_upload_image.setDrawingCacheEnabled(false);
         Bitmap image = ((BitmapDrawable) img_upload_image.getDrawable()).getBitmap();
-        //Bitmap image_low = getResizedBitmap(image, 400, 300);
-        Bitmap image_low = image;
+        image = getResizedBitmap(image, 1000);
+        Bitmap image_low = getResizedBitmap(image, 250);
+        //Bitmap image_low = image;
 
         dialog.show();
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         ByteArrayOutputStream byteArrayOutputStreamLow = new ByteArrayOutputStream();
         image.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
-        image_low.compress(Bitmap.CompressFormat.JPEG, 25, byteArrayOutputStreamLow);
+        image_low.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStreamLow);
 
         String encodedImage = Base64.encodeToString(byteArrayOutputStream.toByteArray(), Base64.DEFAULT);
         String encodedImageLow = Base64.encodeToString(byteArrayOutputStreamLow.toByteArray(), Base64.DEFAULT);
@@ -243,6 +242,25 @@ public class ActivityUpload extends AppCompatActivity {
     Matrix matrix = new Matrix();
     // RESIZE THE BIT MAP
     matrix.postScale(scaleWidth, scaleHeight);
+
+    // "RECREATE" THE NEW BITMAP
+    Bitmap resizedBitmap = Bitmap.createBitmap(
+      bm, 0, 0, width, height, matrix, false);
+    //bm.recycle();
+    return resizedBitmap;
+  }
+
+
+  public Bitmap getResizedBitmap(Bitmap bm, int newWidth) {
+    int width = bm.getWidth();
+    int height = bm.getHeight();
+    float scaleWidth = ((float) newWidth) / width;
+   //float scaleHeight = ((float) newHeight) / height;
+    float scaleHeight = scaleWidth;
+    // CREATE A MATRIX FOR THE MANIPULATION
+    Matrix matrix = new Matrix();
+    // RESIZE THE BIT MAP
+    matrix.postScale(scaleWidth,scaleHeight);
 
     // "RECREATE" THE NEW BITMAP
     Bitmap resizedBitmap = Bitmap.createBitmap(

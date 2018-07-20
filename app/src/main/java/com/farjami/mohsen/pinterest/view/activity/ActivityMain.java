@@ -13,6 +13,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
@@ -194,6 +195,10 @@ public class ActivityMain extends AppCompatActivity {
     //rcv_posts.setLayoutManager(new GridLayoutManager(this,2,GridLayoutManager.VERTICAL,false));
     //rcv_posts.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
     rcv_posts.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
+    rcv_posts.setHasFixedSize(true);
+    rcv_posts.setItemViewCacheSize(20);
+    rcv_posts.setDrawingCacheEnabled(true);
+    rcv_posts.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
 
     getPosts();
 
@@ -206,7 +211,7 @@ public class ActivityMain extends AppCompatActivity {
           if(!last_ids.contains(last_id) && last_id > 11){
             getPosts();
           }
-          Log.i(TAG,"scroll finished");
+          //Log.i(TAG,"scroll finished");
         }
       }
     });

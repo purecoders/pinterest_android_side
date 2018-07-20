@@ -23,7 +23,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:layout_marginTop="?attr/actionBarSize"
-            >
+            android:paddingBottom="40dp">
 
             <TextView
                 android:layout_width="match_parent"
@@ -37,7 +37,8 @@
             <ImageView
                 android:id="@+id/img_upload_image"
                 android:layout_width="match_parent"
-                android:layout_height="200sp"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginBottom="20dp"
@@ -136,16 +137,7 @@
                 android:background="@drawable/back_buttons_public_ripple_effect"
                 android:textSize="@dimen/buttonsTextSize"/>
 
-            <ProgressBar
-                android:id="@+id/prg_upload"
-                style="?android:attr/progressBarStyleSmall"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginTop="10dp"
-                android:padding="10dp"
-                android:layout_gravity="center_horizontal"
-                android:visibility="gone"
-                android:layout_marginBottom="40dp"/>
+
 
 
 

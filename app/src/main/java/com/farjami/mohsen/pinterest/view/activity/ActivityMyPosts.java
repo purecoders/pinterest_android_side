@@ -68,7 +68,7 @@ public class ActivityMyPosts extends AppCompatActivity {
 
     //rcv_my_posts.setLayoutManager(new GridLayoutManager(this,1,GridLayoutManager.VERTICAL,false));
    // rcv_my_posts.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-    rcv_my_posts.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
+    rcv_my_posts.setLayoutManager(new GridLayoutManager(this,1,GridLayoutManager.VERTICAL,false));
 
 
     prefManager = new UserSharedPrefManager(ActivityMyPosts.this);

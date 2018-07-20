@@ -11,8 +11,10 @@ import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -255,7 +257,13 @@ public class ActivityShowPost extends AppCompatActivity {
         String tagsText = "";
         final String main_image = post.getImageUrl();
         prg_show_post_info.setVisibility(View.GONE);
+
+
         Picasso.with(ActivityShowPost.this).load(main_image).into(img_post_image);
+        img_post_image.getLayoutParams().height= ViewGroup.LayoutParams.MATCH_PARENT;
+
+
+        //img_post_image.setLayoutParams(new CoordinatorLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
 //        Picasso.with(ActivityShowPost.this).load(main_image).fetch(new Callback(){
 //          @Override
 //          public void onSuccess() {
@@ -285,6 +293,7 @@ public class ActivityShowPost extends AppCompatActivity {
 
 
     rcv_posts_in_show_post.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
+    rcv_posts_in_show_post.setNestedScrollingEnabled(false);
 
     apiService.getRelatedPosts(jsonObject, new PostsApiService.onRelatedPostsReceived() {
       @Override

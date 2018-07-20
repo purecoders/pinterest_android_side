@@ -35,6 +35,8 @@ dependencies {
     //layout ripple
     compile 'com.balysv:material-ripple:1.0.2'
     compile 'com.makeramen:roundedimageview:2.3.0'
+
+    //compile 'com.android.support.constraint:constraint-layout:1.0.2'
     //compile 'jp.wasabeef:recyclerview-animators:2.3.0'
 
     //Glide

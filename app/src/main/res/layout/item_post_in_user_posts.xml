@@ -48,12 +48,11 @@
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/post_image"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:scaleType="fitXY"
         tools:src="@drawable/programming"
         android:adjustViewBounds="true"
         app:riv_corner_radius="10dip"
-        app:riv_mutate_background="true"
         />
 
 

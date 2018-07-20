@@ -7,7 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -109,6 +111,53 @@ public class ActivitySearch extends AppCompatActivity {
 
 
 
+      }
+    });
+
+    edt_search.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+      @Override
+      public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+        if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+
+
+          if(checkEntry()){
+            txt_no_result.setVisibility(View.GONE);
+            rcv_search_posts.setVisibility(View.INVISIBLE);
+            prg_search.setVisibility(View.VISIBLE);
+
+            String text = edt_search.getText().toString();
+            apiService = new PostsApiService(ActivitySearch.this);
+            JSONObject jsonObject = new JSONObject();
+            try {
+              jsonObject.put("text", text);
+            } catch (JSONException e) {
+              e.printStackTrace();
+            }
+            apiService.getSearchedPosts(jsonObject, new PostsApiService.onSearchPostsReceived() {
+              @Override
+              public void onReceived(List<Post> posts) {
+                prg_search.setVisibility(View.GONE);
+
+                if(posts.size() < 1){
+                  txt_no_result.setVisibility(View.VISIBLE);
+                }else {
+                  txt_no_result.setVisibility(View.GONE);
+                  rcv_search_posts.setVisibility(View.VISIBLE);
+                  MainPostsAdapter adapter = new MainPostsAdapter(ActivitySearch.this, posts);
+                  SlideInBottomAnimationAdapter alphaAdapter = new SlideInBottomAnimationAdapter(adapter);
+                  rcv_search_posts.setAdapter(new ScaleInAnimationAdapter(alphaAdapter));
+
+                }
+
+
+              }
+            });
+          }
+
+
+          return true;
+        }
+        return false;
       }
     });
 
