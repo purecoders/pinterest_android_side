@@ -30,6 +30,7 @@ import com.farjami.mohsen.pinterest.system.UserSharedPrefManager;
 import com.farjami.mohsen.pinterest.view.custom_views.recycler_view_anim.adapters.ScaleInAnimationAdapter;
 import com.farjami.mohsen.pinterest.view.custom_views.recycler_view_anim.adapters.SlideInBottomAnimationAdapter;
 import com.farjami.mohsen.pinterest.view.my_views.MyViews;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -39,6 +40,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class ActivityShowPost extends AppCompatActivity {
 
@@ -233,7 +235,7 @@ public class ActivityShowPost extends AppCompatActivity {
 
     txt_post_description.setText(description);
 
-     Picasso.with(ActivityShowPost.this).load(image).into(img_post_image);
+     //Picasso.with(ActivityShowPost.this).load(image).into(img_post_image);
 
 
     JSONObject jsonObject = new JSONObject();
@@ -247,12 +249,32 @@ public class ActivityShowPost extends AppCompatActivity {
     apiService.getSpecialPost(jsonObject, new PostsApiService.onSpecialPostReceived() {
       @Override
       public void onReceived(Post post, String user_name) {
-        prg_show_post_info.setVisibility(View.GONE);
+
         txt_user_name.setText(user_name);
         List<Tag> tags = post.getTags();
         String tagsText = "";
-        String main_image = post.getImageUrl();
+        final String main_image = post.getImageUrl();
+        prg_show_post_info.setVisibility(View.GONE);
         Picasso.with(ActivityShowPost.this).load(main_image).into(img_post_image);
+//        Picasso.with(ActivityShowPost.this).load(main_image).fetch(new Callback(){
+//          @Override
+//          public void onSuccess() {
+//            img_post_image.setAlpha(0f);
+//            Picasso.with(ActivityShowPost.this).load(main_image).into(img_post_image);
+//            img_post_image.animate().setDuration(800).alpha(1f).start();
+//          }
+//
+//          @Override
+//          public void onError() {
+//
+//          }
+//        });
+
+
+
+
+
+
         for(int i=0 ;  i < tags.size() ; i++){
           tagsText += "#" + tags.get(i).getName() + " ";
         }

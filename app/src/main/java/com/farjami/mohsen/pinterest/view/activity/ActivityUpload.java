@@ -152,7 +152,7 @@ public class ActivityUpload extends AppCompatActivity {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         ByteArrayOutputStream byteArrayOutputStreamLow = new ByteArrayOutputStream();
         image.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
-        image_low.compress(Bitmap.CompressFormat.JPEG, 50, byteArrayOutputStreamLow);
+        image_low.compress(Bitmap.CompressFormat.JPEG, 25, byteArrayOutputStreamLow);
 
         String encodedImage = Base64.encodeToString(byteArrayOutputStream.toByteArray(), Base64.DEFAULT);
         String encodedImageLow = Base64.encodeToString(byteArrayOutputStreamLow.toByteArray(), Base64.DEFAULT);
@@ -180,11 +180,12 @@ public class ActivityUpload extends AppCompatActivity {
             dialog.dismiss();
             if (success == 1) {
               MyViews.makeText(ActivityUpload.this, "your image uploaded successfully", Toast.LENGTH_SHORT);
-              finish();
+
 
             }else {
               MyViews.makeText(ActivityUpload.this, "your image uploading failed . please try again", Toast.LENGTH_SHORT);
             }
+            finish();
           }
         });
       }
