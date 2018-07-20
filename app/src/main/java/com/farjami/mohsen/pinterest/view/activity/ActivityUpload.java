@@ -262,6 +262,7 @@ public class ActivityUpload extends AppCompatActivity {
     if (requestCode == Utils.REQCODE && resultCode == RESULT_OK && data != null) {
       Uri selectedImageUri = data.getData();
       img_upload_image.setImageURI(selectedImageUri);
+      img_upload_image.setScaleType(ImageView.ScaleType.FIT_XY);
     }
   }
 

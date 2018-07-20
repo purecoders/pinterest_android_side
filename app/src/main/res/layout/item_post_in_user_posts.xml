@@ -99,9 +99,9 @@
         android:layout_marginBottom="3dp"
         android:padding="4dp"
         android:textSize="15dp"
+        tools:text="#tag1#tag2#tag3"
         android:textStyle="bold"
-        android:textColor="#353535"
-        android:background="@drawable/back_description_post_item"
+        android:textColor="#3030ff"
         />
 
     <LinearLayout

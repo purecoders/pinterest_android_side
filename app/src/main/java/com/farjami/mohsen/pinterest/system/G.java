@@ -19,7 +19,7 @@ public class G extends Application {
   public static Context context;
 //  public static final String MAIN_URL="http://pinterest.ud";
 //  public static final String MAIN_URL="http://192.168.10.107/pinterest";
-  public static final String MAIN_URL="https://ittiktak.com/pinterest/public";
+  public static final String MAIN_URL="https://ittiktak.com/pinterest/public/api";
 //  public static final String MAIN_URL="http://192.168.43.225/pinterest";
   public static final String SALT="7c3d596ed03ab9116c547b0eb678b247";
 

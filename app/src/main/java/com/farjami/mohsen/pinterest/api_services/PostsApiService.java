@@ -628,7 +628,7 @@ public class PostsApiService {
     }, new Response.ErrorListener() {
       @Override
       public void onErrorResponse(VolleyError error) {
-        onUploadPostReceived.onReceived(0);
+       // onUploadPostReceived.onReceived(0);
       }
     });
 
