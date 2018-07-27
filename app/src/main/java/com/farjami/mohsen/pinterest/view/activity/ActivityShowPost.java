@@ -33,6 +33,7 @@ import com.farjami.mohsen.pinterest.view.custom_views.recycler_view_anim.adapter
 import com.farjami.mohsen.pinterest.view.custom_views.recycler_view_anim.adapters.SlideInBottomAnimationAdapter;
 import com.farjami.mohsen.pinterest.view.my_views.MyViews;
 import com.squareup.picasso.Callback;
+import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -262,11 +263,15 @@ public class ActivityShowPost extends AppCompatActivity {
         //Picasso.with(ActivityShowPost.this).load(main_image).into(img_post_image);
 
 
-        Picasso.with(ActivityShowPost.this).load(main_image).fetch(new Callback(){
+        Picasso.with(ActivityShowPost.this).load(main_image)
+          .memoryPolicy(MemoryPolicy.NO_CACHE)
+          .fetch(new Callback(){
           @Override
           public void onSuccess() {
             img_post_image.setAlpha(0f);
-            Picasso.with(ActivityShowPost.this).load(main_image).into(img_post_image);
+            Picasso.with(ActivityShowPost.this).load(main_image)
+              .memoryPolicy(MemoryPolicy.NO_CACHE)
+              .into(img_post_image);
             img_post_image.animate().setDuration(700).alpha(1f).start();
           }
 

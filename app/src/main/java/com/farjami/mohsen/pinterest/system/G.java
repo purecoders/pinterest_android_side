@@ -4,6 +4,11 @@ import android.app.Application;
 import android.content.Context;
 import android.provider.Settings.Secure;
 import android.util.Base64;
+import android.util.Log;
+
+import com.squareup.picasso.LruCache;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Request;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -35,6 +40,23 @@ public class G extends Application {
   public void onCreate() {
     super.onCreate();
     context=getApplicationContext();
+  }
+
+  public static Picasso getCustomPicasso(Context context){
+    Picasso.Builder builder = new Picasso.Builder(context);
+    int PICASSO_DISK_CACHE_SIZE = 1024 * 1024 * 10;//10 MB
+
+    builder.memoryCache(new LruCache(PICASSO_DISK_CACHE_SIZE));
+    //set request transformer
+    Picasso.RequestTransformer requestTransformer =  new Picasso.RequestTransformer() {
+      @Override
+      public Request transformRequest(Request request) {
+        return request;
+      }
+    };
+    builder.requestTransformer(requestTransformer);
+
+    return builder.build();
   }
 
  /* public static String getDeviceId(Context context){

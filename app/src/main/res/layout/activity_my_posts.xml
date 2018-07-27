@@ -43,6 +43,7 @@
                 android:layout_marginLeft="2dp"
                 android:layout_marginRight="2dp"
                 android:padding="3dp"
+                android:nestedScrollingEnabled="false"
                 >
 
             </android.support.v7.widget.RecyclerView>

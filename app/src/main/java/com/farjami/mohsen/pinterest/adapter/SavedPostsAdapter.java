@@ -15,9 +15,11 @@ import com.farjami.mohsen.pinterest.R;
 import com.farjami.mohsen.pinterest.api_services.PostsApiService;
 import com.farjami.mohsen.pinterest.data_model.Post;
 import com.farjami.mohsen.pinterest.data_model.User;
+import com.farjami.mohsen.pinterest.system.G;
 import com.farjami.mohsen.pinterest.system.UserSharedPrefManager;
 import com.farjami.mohsen.pinterest.view.activity.ActivityShowPost;
 import com.ms.square.android.expandabletextview.ExpandableTextView;
+import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -48,6 +50,7 @@ public class SavedPostsAdapter extends RecyclerView.Adapter<SavedPostsAdapter.Li
 
     Picasso.with(context).
       load(post.getImageUrl())
+      .memoryPolicy(MemoryPolicy.NO_CACHE)
       //.placeholder(context.getResources().getDrawable(R.drawable.default_good_image)).
       //.error(context.getResources().getDrawable(R.drawable.default_no_image))
       .into(holder.image);
