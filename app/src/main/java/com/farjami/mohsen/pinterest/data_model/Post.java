@@ -7,6 +7,7 @@ public class Post {
 
   private int id;
   private String imageUrl;
+  private String mainImageUrl;
   private String description;
   private ArrayList<Tag> tags = new ArrayList<Tag>() ;
   private int saveCount;
@@ -70,5 +71,13 @@ public class Post {
 
   public void setDescription(String description) {
     this.description = description;
+  }
+
+  public String getMainImageUrl() {
+    return mainImageUrl;
+  }
+
+  public void setMainImageUrl(String mainImageUrl) {
+    this.mainImageUrl = mainImageUrl;
   }
 }

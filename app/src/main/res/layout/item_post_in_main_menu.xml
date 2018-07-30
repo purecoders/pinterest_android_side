@@ -20,7 +20,7 @@
         android:scaleType="fitXY"
         android:adjustViewBounds="true"
         tools:src="@drawable/programming"
-        app:riv_corner_radius="10dip"
+        app:riv_corner_radius="5dip"
         />
 
 

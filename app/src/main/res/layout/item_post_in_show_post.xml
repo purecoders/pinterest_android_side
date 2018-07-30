@@ -81,15 +81,11 @@
 
     </LinearLayout>
 
-    <ProgressBar
-        android:id="@+id/prg_show_post_info"
-        style="?android:attr/progressBarStyleSmall"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="10dp"
-        android:padding="10dp"
-        android:layout_gravity="center_horizontal"
-        android:visibility="gone"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
 
 
 
@@ -104,6 +100,20 @@
         android:adjustViewBounds="true"
         android:padding="5dp"
         />
+
+        <ProgressBar
+            android:id="@+id/prg_show_post_info"
+            style="?android:attr/progressBarStyleSmall"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:padding="10dp"
+            android:layout_gravity="center_horizontal"
+            android:visibility="visible"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"/>
+
+    </RelativeLayout>
+
 
     <TextView
         android:id="@+id/txt_post_description"

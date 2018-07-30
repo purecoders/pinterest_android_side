@@ -151,7 +151,7 @@ public class ActivityLogin extends AppCompatActivity {
                 saveUser(user_name, token, G.getClientKey(user_name));
                 //G.isLoggedIn = true;
                 message = "You Are Logged In Successfully.";
-                finish();
+                ActivityLogin.this.finish();
               }else{
                 message = "Login Failed . Please Check Your User Name And Password And Try Again";
               }

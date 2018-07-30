@@ -54,6 +54,7 @@ public class PostsApiService {
               post.setId(postObject.getInt("id"));
               post.setDescription(postObject.getString("description"));
               post.setImageUrl(postObject.getString("image_url_low"));
+              post.setMainImageUrl(postObject.getString("image_url"));
 
 
 
@@ -132,6 +133,7 @@ public class PostsApiService {
               post.setId(postObject.getInt("id"));
               post.setDescription(postObject.getString("description"));
               post.setImageUrl(postObject.getString("image_url_low"));
+              post.setMainImageUrl(postObject.getString("image_url"));
 
               JSONArray tagArray = postObject.getJSONArray("tags");
 
@@ -202,6 +204,7 @@ public class PostsApiService {
               post.setId(postObject.getInt("id"));
               post.setDescription(postObject.getString("description"));
               post.setImageUrl(postObject.getString("image_url_low"));
+              post.setMainImageUrl(postObject.getString("image_url"));
 
 
 
@@ -279,6 +282,7 @@ public class PostsApiService {
             post.setId(postObject.getInt("id"));
             post.setDescription(postObject.getString("description"));
             post.setImageUrl(postObject.getString("image_url"));
+            post.setMainImageUrl(postObject.getString("image_url"));
 
 
             JSONArray tagArray = postObject.getJSONArray("tags");
@@ -348,6 +352,7 @@ public class PostsApiService {
               post.setId(postObject.getInt("id"));
               post.setDescription(postObject.getString("description"));
               post.setImageUrl(postObject.getString("image_url_low"));
+              post.setMainImageUrl(postObject.getString("image_url"));
 
               JSONArray tagArray = postObject.getJSONArray("tags");
 
@@ -517,6 +522,7 @@ public class PostsApiService {
               post.setId(postObject.getInt("id"));
               post.setDescription(postObject.getString("description"));
               post.setImageUrl(postObject.getString("image_url"));
+              post.setMainImageUrl(postObject.getString("image_url"));
 
               JSONArray tagArray = postObject.getJSONArray("tags");
 

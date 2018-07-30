@@ -143,7 +143,7 @@ public class ActivityUpload extends AppCompatActivity {
 
         img_upload_image.setDrawingCacheEnabled(false);
         Bitmap image = ((BitmapDrawable) img_upload_image.getDrawable()).getBitmap();
-        image = getResizedBitmap(image, 1000);
+        image = getResizedBitmap(image, 700);
         Bitmap image_low = getResizedBitmap(image, 250);
         //Bitmap image_low = image;
 

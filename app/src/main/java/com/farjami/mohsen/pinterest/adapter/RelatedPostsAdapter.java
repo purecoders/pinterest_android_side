@@ -44,7 +44,9 @@ public class RelatedPostsAdapter extends RecyclerView.Adapter<RelatedPostsAdapte
 
     Picasso.with(context).
       load(post.getImageUrl())
-      .memoryPolicy(MemoryPolicy.NO_CACHE)
+//      .noFade()
+//      .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+//      .skipMemoryCache()
       //.placeholder(context.getResources().getDrawable(R.drawable.default_good_image)).
       //.error(context.getResources().getDrawable(R.drawable.default_no_image))
       .into(holder.image);
@@ -68,6 +70,7 @@ public class RelatedPostsAdapter extends RecyclerView.Adapter<RelatedPostsAdapte
         intent.putExtra("ID", id);
         intent.putExtra("IMAGE", image_url);
         intent.putExtra("DESCRIPTION", description);
+        intent.putExtra("MAIN_IMAGE", post.getMainImageUrl());
         //intent.putExtra("TAGS", post.getTags());
 //        intent.putExtra("SAVE_COUNT", post.getSaveCount());
 //        intent.putExtra("SHARE_COUNT", post.getShareCount());

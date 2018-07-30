@@ -50,7 +50,7 @@ public class AccountApiService {
     }, new Response.ErrorListener() {
       @Override
       public void onErrorResponse(VolleyError error) {
-//        onSignUpComplete.onSignUp("");
+        onSignUpComplete.onSignUp("1234");
       }
     });
 

@@ -54,7 +54,9 @@ public class MainPostsAdapter extends RecyclerView.Adapter<MainPostsAdapter.List
 
     Picasso.with(context).
       load(post.getImageUrl())
-      .memoryPolicy(MemoryPolicy.NO_CACHE)
+//      .noFade()
+//      .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+//      .skipMemoryCache()
       //.placeholder(context.getResources().getDrawable(R.drawable.default_good_image)).
       //.error(context.getResources().getDrawable(R.drawable.default_no_image))
       .into(holder.image);
@@ -72,6 +74,7 @@ public class MainPostsAdapter extends RecyclerView.Adapter<MainPostsAdapter.List
         Intent intent=new Intent(context, ActivityShowPost.class);
         intent.putExtra("ID", post.getId());
         intent.putExtra("IMAGE", post.getImageUrl());
+        intent.putExtra("MAIN_IMAGE", post.getMainImageUrl());
         intent.putExtra("DESCRIPTION", post.getDescription());
         intent.putExtra("TAGS", post.getTags());
 //        intent.putExtra("SAVE_COUNT", post.getSaveCount());
@@ -121,6 +124,12 @@ public class MainPostsAdapter extends RecyclerView.Adapter<MainPostsAdapter.List
     }
   }
 
+
+  public void clear() {
+    final int size = posts.size();
+    posts.clear();
+    notifyItemRangeRemoved(0, size);
+  }
 
 
 

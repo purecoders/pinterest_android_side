@@ -34,6 +34,7 @@ import com.farjami.mohsen.pinterest.view.custom_views.recycler_view_anim.adapter
 import com.farjami.mohsen.pinterest.view.my_views.MyViews;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -67,6 +68,7 @@ public class ActivityShowPost extends AppCompatActivity {
 
   int id = 0;
   String image = "" ;
+  String main_image_url = "" ;
   String description = "";
 
   boolean isLoggedIn = false;
@@ -154,18 +156,7 @@ public class ActivityShowPost extends AppCompatActivity {
     });
 
 
-
-
-
-
-
-
-
-
-
-
-
-      btn_save_post.setOnClickListener(new View.OnClickListener() {
+    btn_save_post.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
           if(!isLoggedIn){
@@ -219,6 +210,7 @@ public class ActivityShowPost extends AppCompatActivity {
       if(extras != null) {
         id = extras.getInt("ID");
         image = extras.getString("IMAGE");
+        main_image_url = extras.getString("MAIN_IMAGE");
         description = extras.getString("DESCRIPTION");
 
         post.setId(id) ;
@@ -229,6 +221,7 @@ public class ActivityShowPost extends AppCompatActivity {
     } else {
       id = (int) savedInstanceState.getSerializable("ID");
       image = (String) savedInstanceState.getSerializable("IMAGE");
+      main_image_url = (String) savedInstanceState.getSerializable("MAIN_IMAGE");
       description = (String) savedInstanceState.getSerializable("DESCRIPTION");
 
       post.setId(id) ;
@@ -238,7 +231,42 @@ public class ActivityShowPost extends AppCompatActivity {
 
     txt_post_description.setText(description);
 
-     //Picasso.with(ActivityShowPost.this).load(image).into(img_post_image);
+
+    //load image with low quality
+//    Picasso.with(ActivityShowPost.this).load(image).into(img_post_image);
+    //img_post_image.getLayoutParams().height= ViewGroup.LayoutParams.MATCH_PARENT;
+
+    //LOAD MAIN IMAGE
+    Picasso.with(ActivityShowPost.this).load(main_image_url)
+//      .noFade()
+//      .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+//      .networkPolicy(NetworkPolicy.NO_CACHE)
+//      .skipMemoryCache()
+      .fetch(new Callback(){
+        @Override
+        public void onSuccess() {
+          prg_show_post_info.setVisibility(View.GONE);
+          img_post_image.getLayoutParams().height= ViewGroup.LayoutParams.MATCH_PARENT;
+          img_post_image.setAlpha(0f);
+          Picasso.with(ActivityShowPost.this).load(main_image_url)
+//            .noFade()
+//            .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+//            .skipMemoryCache()
+            .into(img_post_image);
+          img_post_image.animate().setDuration(700).alpha(1f).start();
+
+
+
+        }
+
+        @Override
+        public void onError() {
+
+        }
+      });
+
+
+
 
 
     JSONObject jsonObject = new JSONObject();
@@ -256,32 +284,39 @@ public class ActivityShowPost extends AppCompatActivity {
         txt_user_name.setText(user_name);
         List<Tag> tags = post.getTags();
         String tagsText = "";
-        final String main_image = post.getImageUrl();
-        prg_show_post_info.setVisibility(View.GONE);
+        final String main_image = post.getMainImageUrl();
+
 
 
         //Picasso.with(ActivityShowPost.this).load(main_image).into(img_post_image);
 
 
-        Picasso.with(ActivityShowPost.this).load(main_image)
-          .memoryPolicy(MemoryPolicy.NO_CACHE)
-          .fetch(new Callback(){
-          @Override
-          public void onSuccess() {
-            img_post_image.setAlpha(0f);
-            Picasso.with(ActivityShowPost.this).load(main_image)
-              .memoryPolicy(MemoryPolicy.NO_CACHE)
-              .into(img_post_image);
-            img_post_image.animate().setDuration(700).alpha(1f).start();
-          }
+//        Picasso.with(ActivityShowPost.this).load(main_image).noFade()
+//          .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+//          .networkPolicy(NetworkPolicy.NO_CACHE)
+//          .skipMemoryCache()
+//          .fetch(new Callback(){
+//          @Override
+//          public void onSuccess() {
+//            //img_post_image.getLayoutParams().height= ViewGroup.LayoutParams.MATCH_PARENT;
+//            img_post_image.setAlpha(0f);
+//            Picasso.with(ActivityShowPost.this).load(main_image).noFade()
+//              .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+//              .skipMemoryCache()
+//              .into(img_post_image);
+//            img_post_image.animate().setDuration(900).alpha(1f).start();
+//            prg_show_post_info.setVisibility(View.GONE);
+//
+//
+//
+//          }
+//
+//          @Override
+//          public void onError() {
+//
+//          }
+//        });
 
-          @Override
-          public void onError() {
-
-          }
-        });
-
-        img_post_image.getLayoutParams().height= ViewGroup.LayoutParams.MATCH_PARENT;
 
 
 
@@ -292,12 +327,31 @@ public class ActivityShowPost extends AppCompatActivity {
         }
 
         txt_tags_of_post .setText(tagsText);
+
+        //get related posts
+        rcv_posts_in_show_post.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
+        rcv_posts_in_show_post.setNestedScrollingEnabled(false);
+        getRelatedPosts();
       }
+
+
     });
 
 
-    rcv_posts_in_show_post.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
-    rcv_posts_in_show_post.setNestedScrollingEnabled(false);
+
+
+
+
+
+  }
+
+  private void getRelatedPosts(){
+    JSONObject jsonObject = new JSONObject();
+    try {
+      jsonObject.put("id", id);
+    } catch (JSONException e) {
+      e.printStackTrace();
+    }
 
     apiService.getRelatedPosts(jsonObject, new PostsApiService.onRelatedPostsReceived() {
       @Override
@@ -307,8 +361,6 @@ public class ActivityShowPost extends AppCompatActivity {
         rcv_posts_in_show_post.setAdapter(new ScaleInAnimationAdapter(alphaAdapter));
       }
     });
-
-
   }
 
 

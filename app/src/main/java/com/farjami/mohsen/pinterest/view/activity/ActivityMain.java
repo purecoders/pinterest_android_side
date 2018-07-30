@@ -10,6 +10,7 @@ import android.net.NetworkInfo;
 import android.os.Build;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -37,6 +38,7 @@ import com.farjami.mohsen.pinterest.system.UserSharedPrefManager;
 import com.farjami.mohsen.pinterest.view.custom_views.recycler_view_anim.adapters.ScaleInAnimationAdapter;
 import com.farjami.mohsen.pinterest.view.custom_views.recycler_view_anim.adapters.SlideInBottomAnimationAdapter;
 import com.farjami.mohsen.pinterest.view.my_views.MyViews;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -57,6 +59,7 @@ public class ActivityMain extends AppCompatActivity {
   LinearLayout lyt_bottom_buttons;
   ProgressBar prg_get_posts;
   CoordinatorLayout lyt_menu;
+  private boolean isRefreshing = false;
 
   private int post_get_step = 0;
 
@@ -71,6 +74,8 @@ public class ActivityMain extends AppCompatActivity {
 
   UserSharedPrefManager prefManager;
   MainPostsAdapter adapter;
+
+  SwipeRefreshLayout refreshLayout;
 
 
 
@@ -90,10 +95,24 @@ public class ActivityMain extends AppCompatActivity {
     lyt_menu = (CoordinatorLayout) findViewById(R.id.lyt_menu);
     prg_get_posts = (ProgressBar) findViewById(R.id.prg_get_posts);
 
+    refreshLayout = ((SwipeRefreshLayout) findViewById(R.id.swiperefresh));
 
-    Log.i(TAG ,G.getHashedString(G.getHashedString("mohsen123" )+ G.SALT));
+    //delete app cache
+    G.deleteCache(ActivityMain.this);
 
-
+    refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+      @Override
+      public void onRefresh() {
+        isRefreshing = true;
+        if(adapter != null){
+          adapter.clear();
+          last_ids.clear();
+          last_id = 0;
+          post_get_step = 0;
+          getPosts();
+        }
+      }
+    });
 
 
     checkLoggedIn();
@@ -115,40 +134,6 @@ public class ActivityMain extends AppCompatActivity {
         if(isLoggedIn){
           Intent intent = new Intent(ActivityMain.this, ActivityAccount.class);
           startActivity(intent);
-
-          /*AlertDialog.Builder builder;
-          if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            builder = new AlertDialog.Builder(ActivityMain.this, android.R.style.Theme_Material_Dialog_Alert);
-          } else {
-            builder = new AlertDialog.Builder(ActivityMain.this);
-          }
-
-          builder.setTitle("Logout")
-            .setMessage("Are you sure you want to logout?")
-            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-              public void onClick(DialogInterface dialog, int which) {
-                // continue with delete
-                saveUser("", "", "");
-//                btn_login.setText("LOGIN");
-
-                isLoggedIn = false;
-                MyViews.makeText(ActivityMain.this,"You are Logged Out Successfully .", Toast.LENGTH_SHORT);
-
-              }
-            })
-            .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-              public void onClick(DialogInterface dialog, int which) {
-                // do nothing
-              }
-            })
-            .setIcon(android.R.drawable.ic_dialog_alert)
-            .show();
-
-
-
-
-          //isLoggedIn = false;
-//          checkLoggedIn();*/
         }else {
           Intent intent = new Intent(ActivityMain.this,ActivityLogin.class);
           startActivity(intent);
@@ -192,13 +177,11 @@ public class ActivityMain extends AppCompatActivity {
     });
 
 
-    //rcv_posts.setLayoutManager(new GridLayoutManager(this,2,GridLayoutManager.VERTICAL,false));
-    //rcv_posts.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
     rcv_posts.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
-    rcv_posts.setHasFixedSize(true);
-    rcv_posts.setItemViewCacheSize(20);
-    rcv_posts.setDrawingCacheEnabled(true);
-    rcv_posts.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
+//    rcv_posts.setHasFixedSize(true);
+//    rcv_posts.setItemViewCacheSize(20);
+//    rcv_posts.setDrawingCacheEnabled(true);
+//    rcv_posts.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
 
     getPosts();
 
@@ -220,15 +203,14 @@ public class ActivityMain extends AppCompatActivity {
 
 
 
-
-
-
   }
 
 
   private void getPosts(){
     post_get_step++;
-    prg_get_posts.setVisibility(View.VISIBLE);
+    if(!isRefreshing) {
+      prg_get_posts.setVisibility(View.VISIBLE);
+    }
 
 
     final PostsApiService apiService = new PostsApiService(ActivityMain.this);
@@ -245,6 +227,9 @@ public class ActivityMain extends AppCompatActivity {
       @Override
       public void onReceived(List<Post> posts) {
         prg_get_posts.setVisibility(View.GONE);
+        refreshLayout.setRefreshing(false);
+        isRefreshing = false;
+
         if (posts.size() > 0) {
           last_id = findLastId(posts);
         }
